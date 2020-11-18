@@ -9,7 +9,17 @@ const puppeteer = require('puppeteer');
   console.log('landed')
   // await page.screenshot({path: '1landing.png'});
 
-  // *** GLOBAL VARS  *** 
+
+  // * Button Clicks
+  const closeEprice = '.di-modal-close'
+  const srpNewEpriceVar = '.lightning-custom-cta'
+  const carImg = 'div.hit-image'
+  const vdpNewEpriceVar1 = '.vdp-pricebox-cta-button'
+  const vdpNewEpriceVar2 = '.online-shopper-cta-button'
+
+
+
+
   // * ePRICE
       const closeEprice = '.di-modal-close'
       const srpNewEpriceVar = '.lightning-custom-cta'
@@ -43,7 +53,7 @@ const puppeteer = require('puppeteer');
     console.log('SRP-NEW PAGEVIEW:', 'PASSED');
     await page.screenshot({path: '2-SRP-NEW-PAGE.png'});
   } catch (err){
-    console.log('SRP NEW PAGEVIEW:  FAILED');
+    console.log(err,'SRP NEW PAGEVIEW:  FAILED');
   }
 
     // ** ePrice
