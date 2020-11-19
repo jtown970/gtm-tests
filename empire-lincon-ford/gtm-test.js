@@ -22,11 +22,12 @@ const ValueYourTradeUrl = 'true-cash-offer'
 
 //* Btn Classes
 
-const SRPePriceVar = '#primaryButtonPageModalButton'
+const SRPePriceVar = 'div.col-sm-6'
 
-const srpNewImg = '.vehicle-card-title'
+const srpNewImg = '.vehicleImg'
 
-const VDPePriceVar = '#getSalePriceEntryFormButton'
+
+const VDPePriceVar = '#price-stack'
 
 const saveCarBtn = '.save-vehicle'
 
@@ -39,15 +40,16 @@ const chatBox = '.cn-b13-label'
 const socialLinks = '.gg-social__item'
 
 const printBtn = '.print-button'
+const cancelBtn = '.cancel-button'
 
 //* Form Submit Classes
 const formClass = '.ui-button-submit'
 
-const testDriveVar = '#submit'
+const testDriveVar = 'input#submit'
 
-const partsFormVar = '#submit'
+const partsFormVar = 'input#submit'
 
-const contactFormVar = '#submit'
+const contactFormVar = 'div.col-md-12 button#submit'
 
 const financingFormVar = '.next-button'
 
@@ -73,18 +75,6 @@ function delay(time) {
         console.log(err, 'SRP NEW PAGEVIEW:  FAILED');
       }
 
-      
-      // ** Save Car
-      try {    
-        await Promise.all([
-          page.click(saveCarBtn),
-          passedTestObj.srpNewSaveCar = 'passed',
-          console.log('SRP NEW SAVE CAR:', 'PASSED'),
-        ])
-      } catch (err) {
-        passedTestObj.srpNewSaveCar = 'failed',
-        console.log('SRP NEW SAVE CAR:  FAILED');
-      }
 
       // ** ePrice
       try {    
@@ -96,14 +86,17 @@ function delay(time) {
         await page.screenshot({path: '2-1-SRP-NEW-EPRICE.png'})
       } catch (err) {
         passedTestObj.srpNewePrice = 'failed',
-        console.log('SRP NEW ePRICE:  FAILED');
+        console.log(err, 'SRP NEW ePRICE:  FAILED');
       }
 
-      // * go back to new srp
+      // *** NEW-SRP-PAGE-VIEW
       try {
         await page.goto(`${url}/${srpNewUrl}`);
+        passedTestObj.srpNewPageview = 'passed'
         console.log('SRP-NEW PAGEVIEW:', 'PASSED');
+        await page.screenshot({path: '2-SRP-NEW-PAGE.png'});
       } catch (err){
+        failedTest.push('SRP NEW PAGEVIEW: FAILED')
         console.log(err, 'SRP NEW PAGEVIEW:  FAILED');
       }
 
@@ -118,7 +111,7 @@ function delay(time) {
         await page.screenshot({path: '2-3-VDP-NEW.png'})
       } catch (err) {
         passedTestObj.vdpNewPageview = 'failed',
-        console.log('Go to VDP Page:', 'FAILED');
+        console.log(err,'Go to VDP Page:', 'FAILED');
       }
 
 
@@ -127,7 +120,7 @@ function delay(time) {
       try {
         
         await Promise.all([
-          await delay(9000),
+          await delay(3000),
           page.click(VDPePriceVar),
           passedTestObj.vdpNewePrice = 'passed',
           console.log('VDP ePrice: ', 'PASSED'),
@@ -190,7 +183,7 @@ function delay(time) {
       // * VDP ePrice
       try {
         await Promise.all([
-          await delay(9000),
+          await delay(3000),
           page.click(VDPePriceVar),
           passedTestObj.vdpUsedePrice = 'passed',
           console.log('VDP ePrice: ', 'PASSED'),
@@ -202,67 +195,7 @@ function delay(time) {
       }
 
 
-  // *** Cpo-SRP-PAGE-VIEW
-        try {
-          await page.goto(`${url}/${srpCpoUrl}`);
-          passedTestObj.srpCpoPageview = 'passed',
-          console.log('SRP-USED PAGEVIEW:', 'PASSED');
-          await page.screenshot({path: '2-SRP-NEW-PAGE.png'});
-        } catch (err){
-          passedTestObj.srpCpoPageview = 'failed',
-          console.log(err, 'SRP USED PAGEVIEW:  FAILED');
-        }
   
-        // ** ePrice
-        try {    
-          await Promise.all([
-            page.click(SRPePriceVar),
-            passedTestObj.srpCpoePrice = 'passed',
-            console.log('SRP USED ePRICE:', 'PASSED'),
-          ])
-          await page.screenshot({path: '2-1-SRP-NEW-EPRICE.png'})
-        } catch (err) {
-          passedTestObj.srpCpoePrice = 'failed',
-          console.log('SRP USED ePRICE:  FAILED');
-        }
-  
-        // * go back to used srp
-        try {
-          await page.goto(`${url}/${srpCpoUrl}`);
-          console.log('SRP-USED PAGEVIEW:', 'PASSED');
-          await page.screenshot({path: '2-SRP-NEW-PAGE.png'});
-        } catch (err){
-          console.log(err, 'SRP USED PAGEVIEW:  FAILED');
-        }
-  
-    
-        // * Go to VDP
-        try {
-          await Promise.all([
-            page.click(srpNewImg),
-            passedTestObj.vdpCpoPageview = 'passed',
-            console.log('Go to VDP page: ', 'PASSED'),
-          ])
-          await page.screenshot({path: '2-3-VDP-NEW.png'})
-        } catch (err) {
-          passedTestObj.vdpCpoPageview = 'failed',
-          console.log('Go to VDP Page:', 'FAILED');
-        }
-    
-        // * VDP ePrice
-        try {
-          await Promise.all([
-            await delay(9000),
-            page.click(VDPePriceVar),
-            passedTestObj.vdpCpoePrice = 'passed',
-            console.log('VDP ePrice: ', 'PASSED'),
-          ])
-          await page.screenshot({path: '2-4-VDP-NEW.png'})
-        } catch (err) {
-          passedTestObj.vdpCpoePrice = 'failed',
-          console.log('VDP ePRICE: ', 'FAILED');
-        }
-
 
   // * Print Coupon
         // *** Used-SRP-PAGE-VIEW
@@ -287,6 +220,16 @@ function delay(time) {
         } catch (err) {
           passedTestObj.couponPrint = 'failed',
           console.log('PRINT COUPON:  FAILED');
+        }   
+        // ** Cancel Coupon
+        try {    
+          await Promise.all([
+            page.click(cancelBtn),
+            console.log('CANCEL COUPON:', 'PASSED'),
+          ])
+          await page.screenshot({path: '2-1-SRP-NEW-EPRICE.png'})
+        } catch (err) {
+          console.log('CANCEL COUPON:  FAILED');
         }   
   
         
@@ -329,19 +272,7 @@ function delay(time) {
           passedTestObj.financePageview = 'failed',
           console.log(err, 'FINANCE PAGE:  FAILED');
         }
-  
-        // ** Finance Form
-        try {    
-          await Promise.all([
-            page.click(financingFormVar),
-            passedTestObj.financeForm = 'passed', 
-            console.log('FINANCE APP:', 'PASSED'),
-          ])
-          await page.screenshot({path: '2-1-SRP-NEW-EPRICE.png'})
-        } catch (err) {
-          passedTestObj.financeForm = 'failed',
-          console.log('FINANCE APP:  FAILED');
-        }  
+
 
 
     // * SCHEDULE SERVICE APP 
@@ -363,7 +294,7 @@ function delay(time) {
         // ** contact drop down
         try {    
           await Promise.all([
-            page.click(contactDropDown),
+            await page.goto(`${url}/${contactUrl}`),
             passedTestObj.contactPageview = 'passed',
             console.log('CONTACT FORM:', 'PASSED'),
           ])
