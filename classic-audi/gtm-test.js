@@ -25,10 +25,10 @@ const contactUrl = 'li.nav-last a.nav-with-children'
 const ValueYourTradeUrl = 'true-cash-offer'
 
 //* Btn Classes
-const SRPePriceVar = '.btn-primary'
+const SRPePriceVar = '.vehicle-ctas'
 const srpNewImg = '.vehicle-card-title'
 
-const VDPePriceVar = '.btn-primary'
+const VDPePriceVar = 'a.btn'
 
 const saveCarBtn = '.wsm-mycars-buttons'
 
@@ -56,12 +56,18 @@ const financingFormVar = '.ui-accordion-next'
 
 const serviceFormVar = '#SpeedBookSubmit'
 
+// delay fn 
+function delay(time) {
+  return new Promise(function(resolve) { 
+      setTimeout(resolve, time)
+  });
+}
+
   // * START OF TEST * 
 
       // *** NEW-SRP-PAGE-VIEW
       try {
         await page.goto(`${url}/${srpNewUrl}`);
-        passedTest.push("SRP-NEW PAGEVIEW: PASSED")
         passedTestObj.srpNewPageview = 'passed'
         console.log('SRP-NEW PAGEVIEW:', 'PASSED');
         await page.screenshot({path: '2-SRP-NEW-PAGE.png'});
@@ -80,7 +86,6 @@ const serviceFormVar = '#SpeedBookSubmit'
         await page.screenshot({path: '2-1-SRP-NEW-EPRICE.png'})
       } catch (err) {
         passedTestObj.srpNewePrice = 'failed',
-
         console.log('SRP NEW ePRICE:  FAILED');
       }
 
@@ -106,10 +111,16 @@ const serviceFormVar = '#SpeedBookSubmit'
         passedTestObj.vdpNewPageview = 'failed',
         console.log('Go to VDP Page:', 'FAILED');
       }
+
+
   
       // * VDP ePrice
       try {
+        
         await Promise.all([
+          console.log('before waiting'),
+          await delay(9000),
+          console.log('after waiting'),
           page.click(VDPePriceVar),
           passedTestObj.vdpNewePrice = 'passed',
           console.log('VDP ePrice: ', 'PASSED'),
