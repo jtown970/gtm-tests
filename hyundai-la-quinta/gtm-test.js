@@ -21,13 +21,13 @@ const contactUrl = 'ContactUsForm'
 
 //* Btn Classes
 
-const SRPePriceVar = 'div.media figure a img'
+const SRPePriceVar = 'div.content div.wrapped-elements div.link a.primary'
 
 
 const srpNewImg = 'div.media figure a img'
 
 
-const VDPePriceVar = '.vehicle-ctas'
+const VDPePriceVar = '.primary'
 
 const saveCarBtn = '.save-vehicle'
 
@@ -39,17 +39,19 @@ const chatBox = '.cn-b13-label'
 
 const socialLinks = '.gg-social__item'
 
-const printBtn = '.print-coupon'
+const printBtn = 'div.link'
 const cancelBtn = '.cancel-button'
+
+const homeBuy = '.roadster-btn'
 
 //* Form Submit Classes
 const formClass = '.ui-button-submit'
 
 const testDriveVar = 'li.flex-col a.btn-no-decoration'
 
-const partsFormVar = '.ui-button-submit'
+const partsFormVar = 'div.button-wrapper button'
 
-const contactFormVar = '.ui-button-submit'
+const contactFormVar = 'div.button-wrapper button'
 
 const financingFormVar = '.next-button'
 
@@ -80,6 +82,7 @@ function delay(time) {
       // ** ePrice
       try {    
         await Promise.all([
+          await delay(5000),
           page.click(SRPePriceVar),
           passedTestObj.srpNewePrice = 'passed',
           console.log('SRP NEW ePRICE:', 'PASSED'),
