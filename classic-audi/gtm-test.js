@@ -4,69 +4,85 @@ const puppeteer = require('puppeteer');
   const browser = await puppeteer.launch({ headless: false});
   const page = await browser.newPage();
   await page.setViewport({ width: 1920, height: 1080})
-  const url = 'https://www.chevroletofsmithtown.com';
+  const url = 'https://www.westchesteraudi.com';
   await page.goto(url);
   console.log('landed')
   // await page.screenshot({path: '1landing.png'});
 
-  // * URLs
-    const srpNewUrl = 'VehicleSearchResults?search=new'
-    const srpUsedUrl = 'VehicleSearchResults?search=used'
-    const srpCpoUrl = 'certified-pre-owned-vehicles'
-    
-    const vdpNewUrl = 'VehicleDetails/new-'
-    // const vdpNewUrlDoesNotContain = 'inventory'
-    const vdpUsedUrl = 'VehicleDetails/used-'
-    const vdpCpoUrl = 'inventory/certified'
-    
-    const couponsUrl = 'ServiceAndPartsSpecials'
-    const financingUrl = 'FinancePreQualForm'
-    const serviceUrl = 'ServiceApptForm'
-    const partsUrl = 'PartsOrderForm'
-    const orderTiresUrl = 'TireFinder'
-    const contactUrl = 'ContactUsForm'
+  const passedTest = []
+  const passedTestObj = {}
+  const failedTest = []
 
-  //* Btn Classes
-    const SRPePriceVar = 'div.content div.link a.primary'
-    
-    const closeEprice = 'div.link a'
-    const srpNewImg = 'div.media figure a img'
+//* URL
+const srpNewUrl = 'new-inventory/index.htm'
+const srpUsedUrl = 'used-inventory/index.htm'
+const srpCpoUrl = 'certified-inventory/index.htm'
+const couponsUrl = 'specials/service.htm?&ddcref=nav_SpecialsFinancing'
+const financingUrl = 'financing/application.htm?&ddcref=nav_SpecialsFinancing'
+const serviceUrl = 'schedule-service.htm'
+const partsUrl = 'parts/parts-center.htm#order'
+const contactUrl = 'li.nav-last a.nav-with-children'
+const ValueYourTradeUrl = 'true-cash-offer'
 
-    const VDPePriceVar = 'div.content div.link a.primary'
+//* Btn Classes
+const SRPePriceVar = '.mb-3'
+const srpNewImg = 'div.img-container'
 
-    const saveCarBtn = '.vehicle-save interceptible'
+const VDPePriceVar = '#vehicle-ctas1-app-root'
 
-    const sellCarForm = '#gform_submit_button_18'
+const saveCarBtn = '.wsm-mycars-buttons'
 
-    const priceAlerts = '.vehicle-watch'
+const sellCarForm = '#gform_submit_button_18'
 
-    const chatBox = '.sms-button'
+const priceAlerts = '.mycars-add-alert-btn'
 
-    const socialLinks = '.gg-social__item'
+const chatBox = '#cn-chat-question-form'
 
-    const printBtn = 'div.content a.secondary'
+const socialLinks = '.gg-social__item'
 
-    const valueYourTradeVar = '#tradepending-vehicle-typeahead'
+const printBtn = '.ddc-nav-inline'
 
-    //* Form Submit Classes
-    const formClass = 'div.content form .button-wrapper'
+//* Form Submit Classes
+const formClass = '.ui-button-submit'
 
-    const testDriveVar = '.schedule-testdrive'
+const testDriveVar = 'li.flex-col a.btn-no-decoration'
 
-    const partsFormVar = '#gform_submit_button_2'
+const partsFormVar = '#gform_submit_button_2'
 
-    const contactFormVar = 'button'
-    const vdpContactFormVar = 'form.insight div.button-wrapper button'
+const contactDropDown = 'li.nav-last a.nav-with-children'
+const contactFormVar = 'div.contact-form form button.ui-button-submit'
 
-    const financingFormVar = 'form.insight div.button-wrapper button'
+const financingFormVar = '.ui-accordion-next'
 
-    const serviceFormVar = '#gform_submit_button_6'
-
-    const orderTiresFormVar = 'form.ng-pristine button.rectangleLargeButtonImage'
+const serviceFormVar = '#SpeedBookSubmit'
 
   // * START OF TEST * 
 
       // *** NEW-SRP-PAGE-VIEW
+      try {
+        await page.goto(`${url}/${srpNewUrl}`);
+        passedTest.push("SRP-NEW PAGEVIEW: PASSED")
+        passedTestObj.srpNewPageview = 'passed'
+        console.log('SRP-NEW PAGEVIEW:', 'PASSED');
+        await page.screenshot({path: '2-SRP-NEW-PAGE.png'});
+      } catch (err){
+        failedTest.push('SRP NEW PAGEVIEW: FAILED')
+        console.log(err, 'SRP NEW PAGEVIEW:  FAILED');
+      }
+
+      // ** ePrice
+      try {    
+        await Promise.all([
+          page.click(SRPePriceVar),
+          passedTestObj.srpUsedPageview = 'passed',
+          console.log('SRP NEW ePRICE:', 'PASSED'),
+        ])
+        await page.screenshot({path: '2-1-SRP-NEW-EPRICE.png'})
+      } catch (err) {
+        console.log('SRP NEW ePRICE:  FAILED');
+      }
+
+      // * go back to new srp
       try {
         await page.goto(`${url}/${srpNewUrl}`);
         console.log('SRP-NEW PAGEVIEW:', 'PASSED');
@@ -75,27 +91,6 @@ const puppeteer = require('puppeteer');
         console.log(err, 'SRP NEW PAGEVIEW:  FAILED');
       }
 
-      // ** ePrice
-      try {    
-        await Promise.all([
-          page.click(SRPePriceVar),
-          console.log('SRP NEW ePRICE:', 'PASSED'),
-        ])
-        await page.screenshot({path: '2-1-SRP-NEW-EPRICE.png'})
-      } catch (err) {
-        console.log('SRP NEW ePRICE:  FAILED');
-      }
-  
-      // * Close ePrice
-      try {
-        await Promise.all([
-          page.click(closeEprice),
-          console.log('Close ePrice:', "PASSED"),
-        ])
-        await page.screenshot({path: '2-2-SRP-NEW-EPRICE-CLOSE.png'})
-      } catch (err) {
-        console.log('Close ePrice:', 'FAILED');
-      }
   
       // * Go to VDP
       try {
@@ -111,24 +106,14 @@ const puppeteer = require('puppeteer');
       // * VDP ePrice
       try {
         await Promise.all([
-          page.click(VDPePriceVar),
+          page.click(SRPePriceVar),
           console.log('VDP ePrice: ', 'PASSED'),
         ])
         await page.screenshot({path: '2-4-VDP-NEW.png'})
       } catch (err) {
         console.log('VDP ePRICE: ', 'FAILED');
       }
-  
-      // * Close ePrice
-      try {
-        await Promise.all([
-          page.click(closeEprice),
-          console.log('CLOSE ePRICE: ', 'PASSED'),
-        ])
-        await page.screenshot({path: '2-5-EPRICE-CLOSE.png'})
-      } catch (err) {
-        console.log('CLOSE ePRICE: ', 'FAILED');
-      }
+
 
 
       // *** Used-SRP-PAGE-VIEW
@@ -150,17 +135,16 @@ const puppeteer = require('puppeteer');
       } catch (err) {
         console.log('SRP USED ePRICE:  FAILED');
       }
-  
-      // * Close ePrice
+
+      // * go back to used srp
       try {
-        await Promise.all([
-          page.click(closeEprice),
-          console.log('Close ePrice:', "PASSED"),
-        ])
-        await page.screenshot({path: '2-2-SRP-NEW-EPRICE-CLOSE.png'})
-      } catch (err) {
-        console.log('Close ePrice:', 'FAILED');
+        await page.goto(`${url}/${srpUsedUrl}`);
+        console.log('SRP-USED PAGEVIEW:', 'PASSED');
+        await page.screenshot({path: '2-SRP-NEW-PAGE.png'});
+      } catch (err){
+        console.log(err, 'SRP USED PAGEVIEW:  FAILED');
       }
+
   
       // * Go to VDP
       try {
@@ -176,22 +160,12 @@ const puppeteer = require('puppeteer');
       // * VDP ePrice
       try {
         await Promise.all([
-          page.click(VDPePriceVar),
+          page.click(SRPePriceVar),
           console.log('VDP ePrice: ', 'PASSED'),
         ])
         await page.screenshot({path: '2-4-VDP-NEW.png'})
       } catch (err) {
         console.log('VDP ePRICE: ', 'FAILED');
-      }
-  
-      // * Close ePrice
-      try {
-        await Promise.all([
-          page.click(closeEprice),
-          console.log('CLOSE ePRICE: ', 'PASSED'),
-        ])
-      } catch (err) {
-        console.log('CLOSE ePRICE: ', 'FAILED');
       }
 
 
@@ -253,16 +227,18 @@ const puppeteer = require('puppeteer');
 
     // * CONTACT 
 
-        // *** CONTACT PAGE-VIEW
-        try {
-          await page.goto(`${url}/${contactUrl}`);
-          console.log('CONTACT PAGEVIEW:', 'PASSED');
-          await page.screenshot({path: '2-SRP-NEW-PAGE.png'});
-        } catch (err){
-          console.log(err, 'CONTACT PAGE:  FAILED');
-        }
   
-        // ** ePrice
+        // ** contact drop down
+        try {    
+          await Promise.all([
+            page.click(contactDropDown),
+            console.log('CONTACT FORM:', 'PASSED'),
+          ])
+          await page.screenshot({path: 'contact.png'})
+        } catch (err) {
+          console.log(err, 'CONTACT FORM:  FAILED');
+        }  
+        // ** contact btn
         try {    
           await Promise.all([
             page.click(contactFormVar),
@@ -275,7 +251,9 @@ const puppeteer = require('puppeteer');
   
 
   
-
+        console.log(passedTest)
+        console.log(passedTestObj)
+        console.log(failedTest)
   // *** END
   await browser.close();
 })();
