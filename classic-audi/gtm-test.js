@@ -25,10 +25,10 @@ const contactUrl = 'li.nav-last a.nav-with-children'
 const ValueYourTradeUrl = 'true-cash-offer'
 
 //* Btn Classes
-const SRPePriceVar = '.mb-3'
-const srpNewImg = 'div.img-container'
+const SRPePriceVar = '.btn-primary'
+const srpNewImg = '.vehicle-card-title'
 
-const VDPePriceVar = '#vehicle-ctas1-app-root'
+const VDPePriceVar = '.btn-primary'
 
 const saveCarBtn = '.wsm-mycars-buttons'
 
@@ -74,11 +74,13 @@ const serviceFormVar = '#SpeedBookSubmit'
       try {    
         await Promise.all([
           page.click(SRPePriceVar),
-          passedTestObj.srpUsedPageview = 'passed',
+          passedTestObj.srpNewePrice = 'passed',
           console.log('SRP NEW ePRICE:', 'PASSED'),
         ])
         await page.screenshot({path: '2-1-SRP-NEW-EPRICE.png'})
       } catch (err) {
+        passedTestObj.srpNewePrice = 'failed',
+
         console.log('SRP NEW ePRICE:  FAILED');
       }
 
@@ -96,21 +98,25 @@ const serviceFormVar = '#SpeedBookSubmit'
       try {
         await Promise.all([
           page.click(srpNewImg),
+          passedTestObj.vdpNewPageview = 'passed',
           console.log('Go to VDP page: ', 'PASSED'),
         ])
         await page.screenshot({path: '2-3-VDP-NEW.png'})
       } catch (err) {
+        passedTestObj.vdpNewPageview = 'failed',
         console.log('Go to VDP Page:', 'FAILED');
       }
   
       // * VDP ePrice
       try {
         await Promise.all([
-          page.click(SRPePriceVar),
+          page.click(VDPePriceVar),
+          passedTestObj.vdpNewePrice = 'passed',
           console.log('VDP ePrice: ', 'PASSED'),
         ])
         await page.screenshot({path: '2-4-VDP-NEW.png'})
       } catch (err) {
+        passedTestObj.vdpNewePrice = 'failed',
         console.log('VDP ePRICE: ', 'FAILED');
       }
 
@@ -160,7 +166,7 @@ const serviceFormVar = '#SpeedBookSubmit'
       // * VDP ePrice
       try {
         await Promise.all([
-          page.click(SRPePriceVar),
+          page.click(VDPePriceVar),
           console.log('VDP ePrice: ', 'PASSED'),
         ])
         await page.screenshot({path: '2-4-VDP-NEW.png'})
@@ -251,9 +257,9 @@ const serviceFormVar = '#SpeedBookSubmit'
   
 
   
-        console.log(passedTest)
+        // console.log(passedTest)
         console.log(passedTestObj)
-        console.log(failedTest)
+        // console.log(failedTest)
   // *** END
   await browser.close();
 })();
