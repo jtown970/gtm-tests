@@ -1,33 +1,37 @@
 const puppeteer = require('puppeteer');
 
 (async () => {
-  const browser = await puppeteer.launch({ headless: true});
+  const browser = await puppeteer.launch({ headless: false});
   const page = await browser.newPage();
   await page.setViewport({ width: 1920, height: 1080})
-  const url = 'https://www.mercedesofflagstaff.com';
+  const url = 'https://www.missionbaychevrolet.com/';
   await page.goto(url);
   console.log('landed')
   // await page.screenshot({path: '1landing.png'});
   const passedTestObj = {}
 
 //* URL
-const srpNewUrl = 'new-vehicles/'
-const srpUsedUrl = 'used-vehicles/'
-const srpCpoUrl = 'used-vehicles/certified-pre-owned-vehicles/'
-const couponsUrl = 'service/service-specials/'
-const financingUrl = 'finance/apply-for-financing/'
-const serviceUrl = 'service/schedule-service/'
-const partsUrl = 'parts/order-parts/'
-const contactUrl = 'contact-us/'
+const srpNewUrl = 'new-vehicles'
+const srpUsedUrl = 'used-vehicles'
+const srpCpoUrl = 'certified-pre-owned-vehicles'
+
+const vdpNewUrl = 'inventory/new'
+const vdpUsedUrl = 'inventory/used'
+const vdpCpoUrl = 'inventory/certified'
+
+const couponsUrl = 'serviceandpartsspecials'
+const financingUrl = 'financing'
+const serviceUrl = 'service'
+const partsUrl = 'partsorderform'
+const contactUrl = 'contactusform/'
 
 //* Btn Classes
 
-const SRPePriceVar = 'div.hit-additional-ctas div.lightning-custom-cta'
+const SRPePriceVar = '.cbo-button__label'
 
 const srpNewImg = 'div.hit-image-wrap div.hit-image img'
-const newVdpPage = 'span.title-bottom'
 
-const VDPePriceVar = 'a.button-form'
+const VDPePriceVar = 'a.vdp-pricebox-cta-button'
 
 const saveCarBtn = '.save-vehicle'
 
@@ -39,20 +43,20 @@ const chatBox = '.sms-button'
 
 const socialLinks = '.gg-social__item'
 
-const printBtn = '.difo-type-print'
+const printBtn = '.btn-primary'
 
-//* Form Submit Classes
 const formClass = '.ui-button-submit'
 
 const testDriveVar = '.schedule-testdrive'
 
 const partsFormVar = '#gform_submit_button_2'
 
-const contactFormVar = '#gform_submit_button_3'
+const contactFormVar = 'input.gform_button'
 
 const financingFormVar = '.next'
 
 const serviceFormVar = '#gform_submit_button_6'
+
 
 
 // delay fn
@@ -105,7 +109,7 @@ function delay(time) {
       // * Go to VDP
       try {
         await Promise.all([
-          page.click(newVdpPage),
+          page.click(srpNewImg),
           passedTestObj.vdpNewPageview = 'passed',
           console.log('Go to VDP page: ', 'PASSED'),
         ])
