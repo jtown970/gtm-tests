@@ -4,58 +4,63 @@ const puppeteer = require('puppeteer');
   const browser = await puppeteer.launch({ headless: false});
   const page = await browser.newPage();
   await page.setViewport({ width: 1920, height: 1080})
-  const url = 'https://www.missionbaychevrolet.com/';
+  const url = 'https://www.porschehuntington.com/';
   await page.goto(url);
   console.log('landed')
   // await page.screenshot({path: '1landing.png'});
   const passedTestObj = {}
 
-//* URL
+// URL
 const srpNewUrl = 'new-vehicles'
 const srpUsedUrl = 'used-vehicles'
 const srpCpoUrl = 'certified-pre-owned-vehicles'
 
 const vdpNewUrl = 'inventory/new'
+// const vdpNewUrlDoesNotContain = 'inventory'
 const vdpUsedUrl = 'inventory/used'
 const vdpCpoUrl = 'inventory/certified'
 
-const couponsUrl = 'serviceandpartsspecials'
-const financingUrl = 'financing'
-const serviceUrl = 'service'
-const partsUrl = 'partsorderform'
-const contactUrl = 'contactusform/'
+const couponsUrl = 'service-specials'
+const financingUrl = 'apply-for-financing/'
+const serviceUrl = 'schedule_service/'
+const partsUrl = 'parts/order-parts/'
+const contactUrl = 'contact'
 
+// BTN CLASSES 
+// const phone = '.sales-phone'
+const srpNewImg = 'div.vehicle-image'
 //* Btn Classes
+const SRPePriceVar = 'div.primary-cta a.cta-button'
 
-const SRPePriceVar = '.cbo-button__label'
+const VDPePriceVar = 'a.cta-button'
 
-const srpNewImg = 'div.hit-image-wrap div.hit-image img'
-
-const VDPePriceVar = 'a.vdp-pricebox-cta-button'
-
-const saveCarBtn = '.save-vehicle'
+const saveCarBtn = '.save-things-save'
 
 const sellCarForm = '#gform_submit_button_18'
 
 const priceAlerts = '.mycars-add-alert-btn'
 
-const chatBox = '.sms-button'
+const chatBox = '#cn-chat-question-form'
 
 const socialLinks = '.gg-social__item'
 
-const printBtn = '.btn-primary'
+const printBtn = 'a.difo-type-print'
 
+//* Form Submit Classes
 const formClass = '.ui-button-submit'
 
-const testDriveVar = '.schedule-testdrive'
+const testDriveVar = '.schedule-test-drive'
+const testDriveVar2 = '.specialOfferFormCTA'
 
 const partsFormVar = '#gform_submit_button_2'
 
-const contactFormVar = 'input.gform_button'
+const contactFormVar = 'input[type="submit"]'
 
 const financingFormVar = '.next'
 
 const serviceFormVar = '#gform_submit_button_6'
+
+
 
 
 
@@ -65,6 +70,20 @@ function delay(time) {
       setTimeout(resolve, time)
   });
 }
+
+// PHONE
+    //   try {
+    //     await Promise.all([
+    //     await delay(1000),
+    //     page.click(phone),
+    //     passedTestObj.phone = 'passed',
+    //     console.log('phone:', 'PASSED'),
+    //     await page.screenshot({path: '2-SRP-NEW-PAGE.png'})
+    // ])
+    //   } catch (err){
+    //     passedTestObj.phone = 'failed'
+    //     console.log(err, 'phone:  FAILED');
+    //   }
 
   // * START OF TEST *
 
@@ -126,7 +145,7 @@ function delay(time) {
       try {
 
         await Promise.all([
-          await delay(3000),
+          await delay(4000),
           page.click(VDPePriceVar),
           passedTestObj.vdpNewePrice = 'passed',
           console.log('VDP ePrice: ', 'PASSED'),
@@ -134,7 +153,7 @@ function delay(time) {
         await page.screenshot({path: '2-4-VDP-NEW.png'})
       } catch (err) {
         passedTestObj.vdpNewePrice = 'failed',
-        console.log('VDP ePRICE: ', 'FAILED');
+        console.log('VDP ePRICE: ', 'FAILED', err);
       }
 
 
@@ -313,6 +332,7 @@ function delay(time) {
         // ** contact btn
         try {
           await Promise.all([
+            await delay(5000),
             page.click(contactFormVar),
             passedTestObj.contactForm = 'passed',
             console.log('CONTACT FORM:', 'PASSED'),

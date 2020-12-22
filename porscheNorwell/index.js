@@ -1,61 +1,65 @@
+// note that eprice is failing havent looked into it yet but seems to work fine for gtm
 const puppeteer = require('puppeteer');
 
 (async () => {
   const browser = await puppeteer.launch({ headless: false});
   const page = await browser.newPage();
   await page.setViewport({ width: 1920, height: 1080})
-  const url = 'https://www.missionbaychevrolet.com/';
+  const url = 'https://www.porschenorwell.com';
   await page.goto(url);
   console.log('landed')
   // await page.screenshot({path: '1landing.png'});
   const passedTestObj = {}
 
-//* URL
-const srpNewUrl = 'new-vehicles'
-const srpUsedUrl = 'used-vehicles'
-const srpCpoUrl = 'certified-pre-owned-vehicles'
+// URL
+const srpNewUrl = 'searchnew.aspx'
+const srpUsedUrl = 'searchused.aspx'
 
-const vdpNewUrl = 'inventory/new'
-const vdpUsedUrl = 'inventory/used'
-const vdpCpoUrl = 'inventory/certified'
+const couponsUrl = 'service-specials'
+const financingUrl = 'apply-for-financing/'
+const serviceUrl = 'schedule-service-appointment.html'
+const partsUrl = 'orderparts.aspx'
+const contactUrl = 'contactus.aspx'
 
-const couponsUrl = 'serviceandpartsspecials'
-const financingUrl = 'financing'
-const serviceUrl = 'service'
-const partsUrl = 'partsorderform'
-const contactUrl = 'contactusform/'
-
+// BTN CLASSES 
+const srpNewImg = 'div.vehiclePhoto'
 //* Btn Classes
+const SRPePriceVar = 'a#primaryButtonPageModalButton'
 
-const SRPePriceVar = '.cbo-button__label'
+const VDPePriceVar = 'a#primaryButtonPageModalButton'
 
-const srpNewImg = 'div.hit-image-wrap div.hit-image img'
-
-const VDPePriceVar = 'a.vdp-pricebox-cta-button'
-
-const saveCarBtn = '.save-vehicle'
+const saveCarBtn = '.wsm-mycars-buttons'
 
 const sellCarForm = '#gform_submit_button_18'
 
-const priceAlerts = '.mycars-add-alert-btn'
+const priceAlerts = '.priceDropAlert'
 
-const chatBox = '.sms-button'
+const chatBox = '#caoEngagementNewBg'
 
-const socialLinks = '.gg-social__item'
+const socialLinks = '.socialMedia'
 
-const printBtn = '.btn-primary'
+const printBtn = '.print-button'
+const printBtn2 = '.skIXFc-ktSouf-wcotoc-WGXQb'
 
-const formClass = '.ui-button-submit'
+const buyOnlineVar = '.btn-continue'
 
-const testDriveVar = '.schedule-testdrive'
+//* Form Submit Classes
+const formClass = '#submit'
 
-const partsFormVar = '#gform_submit_button_2'
+const testDriveVar = '#submit'
 
-const contactFormVar = 'input.gform_button'
+const partsFormVar = '#submit'
 
-const financingFormVar = '.next'
+const contactFormVar = '#submit'
+const contactFormVar2 = '#RequestMoreInfo'
 
-const serviceFormVar = '#gform_submit_button_6'
+const financingFormVar = '#cuSubmit'
+
+const serviceFormVar = '.widget-container'
+
+const popUpVar = '.bx-button'
+
+
 
 
 
@@ -65,6 +69,20 @@ function delay(time) {
       setTimeout(resolve, time)
   });
 }
+
+// PHONE
+    //   try {
+    //     await Promise.all([
+    //     await delay(1000),
+    //     page.click(phone),
+    //     passedTestObj.phone = 'passed',
+    //     console.log('phone:', 'PASSED'),
+    //     await page.screenshot({path: '2-SRP-NEW-PAGE.png'})
+    // ])
+    //   } catch (err){
+    //     passedTestObj.phone = 'failed'
+    //     console.log(err, 'phone:  FAILED');
+    //   }
 
   // * START OF TEST *
 
@@ -83,7 +101,7 @@ function delay(time) {
       // ** ePrice
       try {
         await Promise.all([
-          await delay(5000),
+          await delay(10000),
           page.click(SRPePriceVar),
           passedTestObj.srpNewePrice = 'passed',
           console.log('SRP NEW ePRICE:', 'PASSED'),
@@ -126,7 +144,7 @@ function delay(time) {
       try {
 
         await Promise.all([
-          await delay(3000),
+          await delay(4000),
           page.click(VDPePriceVar),
           passedTestObj.vdpNewePrice = 'passed',
           console.log('VDP ePrice: ', 'PASSED'),
@@ -134,7 +152,7 @@ function delay(time) {
         await page.screenshot({path: '2-4-VDP-NEW.png'})
       } catch (err) {
         passedTestObj.vdpNewePrice = 'failed',
-        console.log('VDP ePRICE: ', 'FAILED');
+        console.log('VDP ePRICE: ', 'FAILED', err);
       }
 
 
@@ -313,6 +331,7 @@ function delay(time) {
         // ** contact btn
         try {
           await Promise.all([
+            await delay(5000),
             page.click(contactFormVar),
             passedTestObj.contactForm = 'passed',
             console.log('CONTACT FORM:', 'PASSED'),

@@ -120,7 +120,6 @@ function delay(time) {
 
       // * VDP ePrice
       try {
-
         await Promise.all([
           await delay(3000),
           page.click(VDPePriceVar),

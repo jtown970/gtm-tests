@@ -4,7 +4,7 @@ const puppeteer = require('puppeteer');
   const browser = await puppeteer.launch({ headless: false});
   const page = await browser.newPage();
   await page.setViewport({ width: 1920, height: 1080})
-  const url = 'https://www.missionbaychevrolet.com/';
+  const url = 'https://www.unitednissan.com/';
   await page.goto(url);
   console.log('landed')
   // await page.screenshot({path: '1landing.png'});
@@ -19,43 +19,45 @@ const vdpNewUrl = 'inventory/new'
 const vdpUsedUrl = 'inventory/used'
 const vdpCpoUrl = 'inventory/certified'
 
-const couponsUrl = 'serviceandpartsspecials'
+const couponsUrl = 'service-parts-specials'
 const financingUrl = 'financing'
 const serviceUrl = 'service'
-const partsUrl = 'partsorderform'
-const contactUrl = 'contactusform/'
+const partsUrl = 'parts'
+const contactUrl = 'contact'
 
 //* Btn Classes
 
-const SRPePriceVar = '.cbo-button__label'
+const SRPePriceVar = 'div.primary-cta a.cta-button'
 
 const srpNewImg = 'div.hit-image-wrap div.hit-image img'
 
-const VDPePriceVar = 'a.vdp-pricebox-cta-button'
+const VDPePriceVar = 'div.maincta-row a.cta-button'
 
-const saveCarBtn = '.save-vehicle'
+const saveCarBtn = '.save-things-save'
 
 const sellCarForm = '#gform_submit_button_18'
 
 const priceAlerts = '.mycars-add-alert-btn'
 
-const chatBox = '.sms-button'
+const chatBox = '.gg-chat-bubble'
 
 const socialLinks = '.gg-social__item'
 
-const printBtn = '.btn-primary'
+const printBtn = '.difo-type-print'
 
 const formClass = '.ui-button-submit'
 
-const testDriveVar = '.schedule-testdrive'
+const testDriveVar = '.schedule-test-drive'
 
 const partsFormVar = '#gform_submit_button_2'
 
-const contactFormVar = 'input.gform_button'
+const contactFormVar = '#gform_submit_button_3'
 
 const financingFormVar = '.next'
 
 const serviceFormVar = '#gform_submit_button_6'
+
+const popUpFormVar = '#getRewardBtn'
 
 
 

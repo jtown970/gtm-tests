@@ -4,34 +4,34 @@ const puppeteer = require('puppeteer');
   const browser = await puppeteer.launch({ headless: false});
   const page = await browser.newPage();
   await page.setViewport({ width: 1920, height: 1080})
-  const url = 'https://www.missionbaychevrolet.com/';
+  const url = 'https://www.missionbayvolkswagen.com/';
   await page.goto(url);
   console.log('landed')
   // await page.screenshot({path: '1landing.png'});
   const passedTestObj = {}
 
-//* URL
-const srpNewUrl = 'new-vehicles'
-const srpUsedUrl = 'used-vehicles'
-const srpCpoUrl = 'certified-pre-owned-vehicles'
+// URL
+const srpNewUrl = 'new-volkswagen-san-diego-ca'
+const srpUsedUrl = 'used-cars-san-diego-ca'
+const srpCpoUrl = 'certified-used-'
 
-const vdpNewUrl = 'inventory/new'
-const vdpUsedUrl = 'inventory/used'
-const vdpCpoUrl = 'inventory/certified'
+const vdpNewUrl = 'vehicle-details/new-'
+const vdpUsedUrl = 'vehicle-details/used-'
+const vdpCpoUrl = 'vehicle-details/used-'
 
-const couponsUrl = 'serviceandpartsspecials'
-const financingUrl = 'financing'
-const serviceUrl = 'service'
-const partsUrl = 'partsorderform'
-const contactUrl = 'contactusform/'
+const couponsUrl = 'service-specials'
+const financingUrl = 'car-loans-in-san-diego-ca'
+const serviceUrl = 'schedule-car-maintenance-or-auto-repair-san-diego-ca'
+const partsUrl = 'auto-parts-san-diego-ca'
+const contactUrl = 'contact-mission-bay-volkswagen-in-san-diego-ca'
 
-//* Btn Classes
+// BTN CLASSES 
+// const phone = '.sales-phone'
+const srpNewImg = 'div.vehicle-image-content'
 
-const SRPePriceVar = '.cbo-button__label'
+const SRPePriceVar = 'button.hash-st_request_a_quote'
 
-const srpNewImg = 'div.hit-image-wrap div.hit-image img'
-
-const VDPePriceVar = 'a.vdp-pricebox-cta-button'
+const VDPePriceVar = 'div.action-buttons-placeholder div.vehicle-action-btn div.mod-action-buttons button.hash-st_request_a_quote'
 
 const saveCarBtn = '.save-vehicle'
 
@@ -39,23 +39,25 @@ const sellCarForm = '#gform_submit_button_18'
 
 const priceAlerts = '.mycars-add-alert-btn'
 
-const chatBox = '.sms-button'
+const chatBox = 'div.gg-chat-bubble svg.gg-chat-bubble__icon'
 
-const socialLinks = '.gg-social__item'
+const socialLinks = '.gg-social'
 
-const printBtn = '.btn-primary'
+const printBtn = '.print-coupon-btn'
 
-const formClass = '.ui-button-submit'
+//* Form Submit Classes
+const formClass = '.custom-btn'
 
 const testDriveVar = '.schedule-testdrive'
 
-const partsFormVar = '#gform_submit_button_2'
+const partsFormVar = '.custom-btn'
 
-const contactFormVar = 'input.gform_button'
+const contactFormVar = '.custom-btn'
 
 const financingFormVar = '.next'
 
 const serviceFormVar = '#gform_submit_button_6'
+
 
 
 
@@ -65,6 +67,20 @@ function delay(time) {
       setTimeout(resolve, time)
   });
 }
+
+// PHONE
+    //   try {
+    //     await Promise.all([
+    //     await delay(1000),
+    //     page.click(phone),
+    //     passedTestObj.phone = 'passed',
+    //     console.log('phone:', 'PASSED'),
+    //     await page.screenshot({path: '2-SRP-NEW-PAGE.png'})
+    // ])
+    //   } catch (err){
+    //     passedTestObj.phone = 'failed'
+    //     console.log(err, 'phone:  FAILED');
+    //   }
 
   // * START OF TEST *
 
@@ -126,7 +142,7 @@ function delay(time) {
       try {
 
         await Promise.all([
-          await delay(3000),
+          await delay(4000),
           page.click(VDPePriceVar),
           passedTestObj.vdpNewePrice = 'passed',
           console.log('VDP ePrice: ', 'PASSED'),
@@ -134,7 +150,7 @@ function delay(time) {
         await page.screenshot({path: '2-4-VDP-NEW.png'})
       } catch (err) {
         passedTestObj.vdpNewePrice = 'failed',
-        console.log('VDP ePRICE: ', 'FAILED');
+        console.log('VDP ePRICE: ', 'FAILED', err);
       }
 
 
