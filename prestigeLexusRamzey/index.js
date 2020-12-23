@@ -1,64 +1,63 @@
+// note that eprice is failing havent looked into it yet but seems to work fine for gtm
 const puppeteer = require('puppeteer');
 
 (async () => {
   const browser = await puppeteer.launch({ headless: false});
   const page = await browser.newPage();
   await page.setViewport({ width: 1920, height: 1080})
-  const url = 'https://www.porschehuntington.com/';
+  const url = 'https://www.prestigelexus.com';
   await page.goto(url);
   console.log('landed')
   // await page.screenshot({path: '1landing.png'});
   const passedTestObj = {}
 
 // URL
-const srpNewUrl = 'new-vehicles'
-const srpUsedUrl = 'used-vehicles'
-const srpCpoUrl = 'certified-pre-owned-vehicles'
+const srpNewUrl = 'searchnew.aspx'
+const srpUsedUrl = 'searchused.aspx'
 
-const vdpNewUrl = 'inventory/new'
-// const vdpNewUrlDoesNotContain = 'inventory'
-const vdpUsedUrl = 'inventory/used'
-const vdpCpoUrl = 'inventory/certified'
-
-const couponsUrl = 'service-specials'
+const couponsUrl = 'Servicespecials.html'
 const financingUrl = 'apply-for-financing/'
-const serviceUrl = 'schedule_service/'
-const partsUrl = 'parts/order-parts/'
-const contactUrl = 'contact'
+const serviceUrl = 'schedule-service-appointment.html'
+const partsUrl = 'orderparts.aspx'
+const contactUrl = 'contactus.aspx'
 
 // BTN CLASSES 
-// const phone = '.sales-phone'
-const srpNewImg = 'div.vehicle-image'
+const srpNewImg = 'div.vehiclePhoto'
 //* Btn Classes
-const SRPePriceVar = 'div.primary-cta a.cta-button'
+const SRPePriceVar = '#primaryButtonPageModalButton'
 
-const VDPePriceVar = 'a.cta-button'
+const VDPePriceVar = '#primaryButtonPageModalButton'
 
-const saveCarBtn = '.save-things-save'
+const saveCarBtn = '.wsm-mycars-buttons'
 
 const sellCarForm = '#gform_submit_button_18'
 
-const priceAlerts = '.mycars-add-alert-btn'
+const priceAlerts = '.priceDropAlert'
 
-const chatBox = '#cn-chat-question-form'
+const chatBox = '#caoEngagementNewBg'
 
-const socialLinks = '.gg-social__item'
+const socialLinks = '.socialMedia'
 
-const printBtn = 'a.difo-type-print'
+const printBtn = '.print-button'
+const printBtn2 = '.skIXFc-ktSouf-wcotoc-WGXQb'
+
+const buyOnlineVar = '.btn-continue'
 
 //* Form Submit Classes
-const formClass = '.ui-button-submit'
+const formClass = '#submit'
 
-const testDriveVar = '.schedule-test-drive'
-const testDriveVar2 = '.specialOfferFormCTA'
+const testDriveVar = '#submit'
 
-const partsFormVar = '#gform_submit_button_2'
+const partsFormVar = '#submit'
 
-const contactFormVar = 'input[type="submit"]'
+const contactFormVar = '#submit'
+const contactFormVar2 = '.stat-button-link'
 
-const financingFormVar = '.next'
+const financingFormVar = '.next-button'
 
-const serviceFormVar = '#gform_submit_button_6'
+const serviceFormVar = '.widget-container'
+
+const popUpVar = '.bx-button'
 
 
 
@@ -102,7 +101,7 @@ function delay(time) {
       // ** ePrice
       try {
         await Promise.all([
-          await delay(5000),
+          await delay(10000),
           page.click(SRPePriceVar),
           passedTestObj.srpNewePrice = 'passed',
           console.log('SRP NEW ePRICE:', 'PASSED'),
